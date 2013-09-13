@@ -253,7 +253,7 @@ private:
      * Direction
      *********************************************************************/
 public:
-    enum Direction { Forward, Backward };
+    enum Direction { Forward, Backward, Random };
 
 public:
     /**

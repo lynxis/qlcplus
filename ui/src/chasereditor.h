@@ -102,6 +102,7 @@ private slots:
     void slotPingPongClicked();
     void slotForwardClicked();
     void slotBackwardClicked();
+    void slotRandomClicked();
 
     /************************************************************************
      * Speed

@@ -165,6 +165,12 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     case Chaser::Backward:
         m_backward->setChecked(true);
         break;
+    case Chaser::Random:
+        m_loop->setChecked(true);
+        m_singleShot->setEnabled(false);
+        m_pingPong->setEnabled(false);
+        m_random->setChecked(true);
+        break;
     }
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
@@ -209,9 +215,13 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
             this, SLOT(slotForwardClicked()));
     connect(m_backward, SIGNAL(clicked()),
             this, SLOT(slotBackwardClicked()));
+    connect(m_random, SIGNAL(clicked()),
+            this, SLOT(slotRandomClicked()));
     connect(m_forward, SIGNAL(clicked()),
             this, SLOT(slotRestartTest()));
     connect(m_backward, SIGNAL(clicked()),
+            this, SLOT(slotRestartTest()));
+    connect(m_random, SIGNAL(clicked()),
             this, SLOT(slotRestartTest()));
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
@@ -636,11 +646,23 @@ void ChaserEditor::slotPingPongClicked()
 void ChaserEditor::slotForwardClicked()
 {
     m_chaser->setDirection(Function::Forward);
+    m_singleShot->setEnabled(true);
+    m_pingPong->setEnabled(true);
 }
 
 void ChaserEditor::slotBackwardClicked()
 {
     m_chaser->setDirection(Function::Backward);
+    m_singleShot->setEnabled(true);
+    m_pingPong->setEnabled(true);
+}
+
+void ChaserEditor::slotRandomClicked()
+{
+    m_chaser->setDirection(Function::Random);
+    m_loop->setChecked(true);
+    m_singleShot->setEnabled(false);
+    m_pingPong->setEnabled(false);
 }
 
 /****************************************************************************

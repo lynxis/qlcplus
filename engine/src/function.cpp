@@ -290,7 +290,7 @@ bool Function::loadXMLRunOrder(const QDomElement& root)
 
 void Function::setDirection(const Function::Direction& dir)
 {
-    if (dir == Forward || dir == Backward)
+    if (dir == Forward || dir == Backward || dir == Random)
         m_direction = dir;
     else
         m_direction = Forward;

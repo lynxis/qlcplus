@@ -317,13 +317,28 @@ bool ChaserRunner::write(MasterTimer* timer, UniverseArray* universes)
             else
                 m_currentStep++;
         }
-        else
+        else if (m_direction == Function::Backward)
         {
             // "Previous" for a backwards scene is +1
             if (m_previous == true)
                 m_currentStep++;
             else
                 m_currentStep--;
+        }
+        else if (m_direction == Function::Random)
+        {
+            if (m_chaser->steps().size() == 1)
+            {
+                m_currentStep = m_currentStep;
+            }
+            else
+            {
+                // Prevent previous scene from being selected again
+                int previousStep = m_currentStep;
+                do {
+                    m_currentStep = qrand() % m_chaser->steps().size();
+                } while (m_currentStep == previousStep);
+            }
         }
 
         if (roundCheck() == false)
