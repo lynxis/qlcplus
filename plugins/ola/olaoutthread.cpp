@@ -141,7 +141,11 @@ void OlaOutThread::new_pipe_data()
     m_buffer.Set(data.data, data_read - sizeof(data.universe));
 
     /* TODO: add callback to check when SendDMX fails */
-    ola::client::SendDMXArgs args(NULL);
+    ola::client::SendDMXArgs args(
+            NewSimpleCallback([] (const ola::client::Result &result) {
+                if (!result.Success()) {
+                    qWarning() << "olaout:: SendDmx() failed " << result.Error();
+                }} ));
     m_client->SendDMX(data.universe, m_buffer, args);
 }
 
