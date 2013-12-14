@@ -138,8 +138,8 @@ void OlaOutThread::new_pipe_data()
     }
 
     m_buffer.Set(data.data, data_read - sizeof(data.universe));
-    if (!m_client->SendDmx(data.universe, m_buffer))
-        qWarning() << "olaout:: SendDmx() failed";
+    if (!m_client->SendDMX(data.universe, m_buffer))
+        qWarning() << "olaout:: SendDMX() failed";
 }
 
 
