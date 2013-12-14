@@ -24,7 +24,7 @@
 #include <QThread>
 
 #include <ola/DmxBuffer.h>
-#include <ola/OlaClient.h>
+#include <ola/client/OlaClient.h>
 #include <ola/io/Descriptor.h>
 #include <ola/io/SelectServer.h>
 #include <ola/network/Socket.h>
@@ -82,7 +82,7 @@ private:
     virtual bool init() = 0;
     virtual void cleanup() {};
     ola::io::LoopbackDescriptor *m_pipe; // the pipe to get new dmx data on
-    ola::OlaClient *m_client;
+    ola::client::OlaClient *m_client;
     dmx_data m_data;
     ola::DmxBuffer m_buffer;
 };

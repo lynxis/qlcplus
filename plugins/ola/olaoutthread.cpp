@@ -151,7 +151,7 @@ bool OlaOutThread::setup_client(ola::io::ConnectedDescriptor *descriptor)
 {
     if (!m_client)
     {
-        m_client = new ola::OlaClient(descriptor);
+        m_client = new ola::client::OlaClient(descriptor);
         if (!m_client->Setup())
         {
             qWarning() << "olaout: client setup failed";
