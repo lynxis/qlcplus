@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <ola/Callback.h>
+#include <ola/client/ClientArgs.h>
 #include "olaoutthread.h"
 
 OlaOutThread::OlaOutThread()
@@ -138,8 +139,10 @@ void OlaOutThread::new_pipe_data()
     }
 
     m_buffer.Set(data.data, data_read - sizeof(data.universe));
-    if (!m_client->SendDmx(data.universe, m_buffer))
-        qWarning() << "olaout:: SendDmx() failed";
+
+    /* TODO: add callback to check when SendDMX fails */
+    ola::client::SendDMXArgs args(NULL);
+    m_client->SendDMX(data.universe, m_buffer, args);
 }
 
 
@@ -151,7 +154,7 @@ bool OlaOutThread::setup_client(ola::io::ConnectedDescriptor *descriptor)
 {
     if (!m_client)
     {
-        m_client = new ola::OlaClient(descriptor);
+        m_client = new ola::client::OlaClient(descriptor);
         if (!m_client->Setup())
         {
             qWarning() << "olaout: client setup failed";
